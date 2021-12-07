@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:test_modular_app_video_image_api/app/shared/animations/animations_parameters.dart';
+import 'package:flutter_modular/flutter_modular.dart';
+
+import 'favorites_controller.dart';
 
 class FavoritesPage extends StatefulWidget {
   const FavoritesPage({Key? key}) : super(key: key);
@@ -8,16 +10,18 @@ class FavoritesPage extends StatefulWidget {
   State<FavoritesPage> createState() => _FavoritesPageState();
 }
 
-class _FavoritesPageState extends State<FavoritesPage>
+class _FavoritesPageState
+    extends ModularState<FavoritesPage, FavoritesController>
     with SingleTickerProviderStateMixin {
   AnimationController? _fadeInAnimationController;
   Animation<double>? _fadeInAnimation;
   Tween<double>? _tweenFade;
-  final Duration _fadeInAnimationDuraion = AnimationParameters.fadeInDuration;
+  Duration? _fadeInAnimationDuraion;
 
   @override
   void initState() {
     super.initState();
+    _fadeInAnimationDuraion = controller.animationParameters.fadeInDuration;
     _fadeInAnimationController = AnimationController(
       vsync: this,
       duration: _fadeInAnimationDuraion,

@@ -1,5 +1,12 @@
-class AnimationParameters {
-  static const Duration fadeInDuration = Duration(milliseconds: 210);
-  static const Duration fadeOutDuration = Duration(milliseconds: 90);
-  static const Duration duration = Duration(milliseconds: 300);
+import 'animations_parameters_interface.dart';
+
+class AnimationsParameters extends AnimationsParametersI {
+  @override
+  Duration get duration => const Duration(milliseconds: 300);
+
+  @override
+  Duration get fadeInDuration => const Duration(milliseconds: 210);
+
+  @override
+  Duration get fadeOutDuration => const Duration(milliseconds: 90);
 }

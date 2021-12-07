@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:test_modular_app_video_image_api/app/shared/animations/animations_parameters.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 
 import 'components/images_grid_view.dart';
 import 'components/sliver_header_delegate.dart';
+import 'home_controller.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -11,19 +12,21 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage>
+class _HomePageState extends ModularState<HomePage, HomeController>
     with SingleTickerProviderStateMixin {
   AnimationController? _fadeInAnimationController;
   Animation<double>? _fadeInAnimation;
   Tween<double>? _tweenFade;
   Tween<double>? _tweenScale;
   ScrollController? _scrollController;
-  final Duration _fadeInAnimationDuraion = AnimationParameters.fadeInDuration;
-  final Duration _animationDuration = AnimationParameters.duration;
+  Duration? _fadeInAnimationDuraion;
+  Duration? _animationDuration;
 
   @override
   void initState() {
     super.initState();
+    _fadeInAnimationDuraion = controller.animationParameters.fadeInDuration;
+    _animationDuration = controller.animationParameters.duration;
     _scrollController = ScrollController();
     _fadeInAnimationController = AnimationController(
       vsync: this,
@@ -53,7 +56,7 @@ class _HomePageState extends State<HomePage>
               delegate: SliverHeaderDelegate(
                 scrollController: _scrollController!,
                 animation: _fadeInAnimation!,
-                animationDuration: _animationDuration,
+                animationDuration: _animationDuration!,
                 expandedHeight: 56,
               ),
             ),
@@ -63,7 +66,7 @@ class _HomePageState extends State<HomePage>
                 key: UniqueKey(),
                 animation: _fadeInAnimation!,
                 tweenScale: _tweenScale!,
-                tweenDuration: _fadeInAnimationDuraion,
+                tweenDuration: _fadeInAnimationDuraion!,
               ),
             )
           ],

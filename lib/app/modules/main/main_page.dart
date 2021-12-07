@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:test_modular_app_video_image_api/app/shared/animations/animations_parameters.dart';
 
 import 'main_controller.dart';
 
@@ -17,25 +16,12 @@ class _MainPageState extends ModularState<MainPage, MainController>
   AnimationController? _fadeOutAnimationController;
   Tween<double>? _tweenFade;
   Animation<double>? _fadeOutAnimation;
-  final Duration _fadeOutAnimationDuraion = AnimationParameters.fadeOutDuration;
-
-  Future<void> bottomNavOnTap(int index) async {
-    if (controller.isAnimationConcluded &&
-        index != controller.currentBottomNavIndex) {
-      controller.setIsAnimationConcluded(false);
-      _fadeOutAnimationController!.duration = _fadeOutAnimationDuraion;
-      _fadeOutAnimationController!.forward();
-      controller.changeCurrentPageIndex(index);
-      await Future.delayed(_fadeOutAnimationDuraion);
-      _fadeOutAnimationController!.duration = const Duration(milliseconds: 0);
-      _fadeOutAnimationController!.reverse();
-      controller.setIsAnimationConcluded(true);
-    }
-  }
+  Duration? _fadeOutAnimationDuraion;
 
   @override
   void initState() {
     super.initState();
+    _fadeOutAnimationDuraion = controller.animationParameters.fadeOutDuration;
     controller.init();
     _fadeOutAnimationController = AnimationController(
       vsync: this,
@@ -67,7 +53,10 @@ class _MainPageState extends ModularState<MainPage, MainController>
       bottomNavigationBar: Observer(
         builder: (BuildContext context) => BottomNavigationBar(
           currentIndex: controller.currentBottomNavIndex,
-          onTap: (int index) async => bottomNavOnTap(index),
+          onTap: (int index) async => controller.changeCurrentPageIndex(
+            newIndex: index,
+            fadeOutAnimationController: _fadeOutAnimationController!,
+          ),
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(
               icon: Icon(Icons.home_outlined),

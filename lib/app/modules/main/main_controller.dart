@@ -1,12 +1,16 @@
+import 'package:flutter/animation.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
-import 'package:test_modular_app_video_image_api/app/shared/animations/animations_parameters.dart';
+import 'package:test_modular_app_video_image_api/app/shared/animations/animations_parameters_interface.dart';
 
 part 'main_controller.g.dart';
 
 class MainController = _MainController with _$MainController;
 
 abstract class _MainController with Store {
+  _MainController(this.animationParameters);
+  AnimationsParametersI animationParameters;
+
   @observable
   int currentPageIndex = 0;
 
@@ -25,10 +29,18 @@ abstract class _MainController with Store {
     Modular.to.navigate("/home/");
   }
 
-  Future<void> changeCurrentPageIndex(int newIndex) async {
-    if (newIndex != currentPageIndex) {
+  Future<void> changeCurrentPageIndex({
+    required int newIndex,
+    required AnimationController fadeOutAnimationController,
+  }) async {
+    if (newIndex != currentBottomNavIndex &&
+        currentBottomNavIndex == currentPageIndex &&
+        isAnimationConcluded) {
+      setIsAnimationConcluded(false);
+      fadeOutAnimationController.duration = animationParameters.fadeOutDuration;
+      fadeOutAnimationController.forward();
       currentBottomNavIndex = newIndex;
-      await Future.delayed(AnimationParameters.fadeOutDuration);
+      await Future.delayed(animationParameters.fadeOutDuration);
       currentPageIndex = newIndex;
       switch (currentPageIndex) {
         case 0:
@@ -41,6 +53,10 @@ abstract class _MainController with Store {
           Modular.to.navigate("/home");
           break;
       }
+      fadeOutAnimationController.duration = const Duration(milliseconds: 0);
+      fadeOutAnimationController.reverse();
+      await Future.delayed(animationParameters.fadeInDuration);
+      setIsAnimationConcluded(true);
     }
   }
 }
