@@ -6,7 +6,9 @@ import 'modules/main/main_molule.dart';
 class AppModule extends Module {
   @override
   List<Bind> get binds => [
-        Bind.factory((i) => AnimationsParameters()),
+        Bind.factory(
+          (i) => AnimationsParameters(),
+        ),
       ];
 
   @override

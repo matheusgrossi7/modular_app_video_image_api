@@ -8,8 +8,8 @@ part 'main_controller.g.dart';
 class MainController = _MainController with _$MainController;
 
 abstract class _MainController with Store {
-  _MainController(this.animationParameters);
-  AnimationsParametersI animationParameters;
+  _MainController(this.animationsParameters);
+  AnimationsParametersI animationsParameters;
 
   @observable
   int currentPageIndex = 0;
@@ -33,14 +33,13 @@ abstract class _MainController with Store {
     required int newIndex,
     required AnimationController fadeOutAnimationController,
   }) async {
-    if (newIndex != currentBottomNavIndex &&
-        currentBottomNavIndex == currentPageIndex &&
-        isAnimationConcluded) {
-      setIsAnimationConcluded(false);
-      fadeOutAnimationController.duration = animationParameters.fadeOutDuration;
+    if (newIndex != currentBottomNavIndex && isAnimationConcluded) {
+      isAnimationConcluded = false;
+      fadeOutAnimationController.duration =
+          animationsParameters.fadeOutDuration;
       fadeOutAnimationController.forward();
       currentBottomNavIndex = newIndex;
-      await Future.delayed(animationParameters.fadeOutDuration);
+      await Future.delayed(animationsParameters.fadeOutDuration);
       currentPageIndex = newIndex;
       switch (currentPageIndex) {
         case 0:
@@ -55,8 +54,8 @@ abstract class _MainController with Store {
       }
       fadeOutAnimationController.duration = const Duration(milliseconds: 0);
       fadeOutAnimationController.reverse();
-      await Future.delayed(animationParameters.fadeInDuration);
-      setIsAnimationConcluded(true);
+      await Future.delayed(animationsParameters.duration);
+      isAnimationConcluded = true;
     }
   }
 }

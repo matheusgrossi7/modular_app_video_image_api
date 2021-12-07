@@ -14,21 +14,21 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends ModularState<MainPage, MainController>
     with SingleTickerProviderStateMixin {
   AnimationController? _fadeOutAnimationController;
-  Tween<double>? _tweenFade;
+  Tween<double>? _tweenFadeOut;
   Animation<double>? _fadeOutAnimation;
-  Duration? _fadeOutAnimationDuraion;
+  Duration? _fadeOutAnimationDuration;
 
   @override
   void initState() {
     super.initState();
-    _fadeOutAnimationDuraion = controller.animationParameters.fadeOutDuration;
+    _fadeOutAnimationDuration = controller.animationsParameters.fadeOutDuration;
     controller.init();
     _fadeOutAnimationController = AnimationController(
       vsync: this,
-      duration: _fadeOutAnimationDuraion,
+      duration: _fadeOutAnimationDuration,
     );
-    _tweenFade = Tween<double>(begin: 1, end: 0);
-    _fadeOutAnimation = _tweenFade!.animate(_fadeOutAnimationController!);
+    _tweenFadeOut = Tween<double>(begin: 1, end: 0);
+    _fadeOutAnimation = _tweenFadeOut!.animate(_fadeOutAnimationController!);
   }
 
   @override
