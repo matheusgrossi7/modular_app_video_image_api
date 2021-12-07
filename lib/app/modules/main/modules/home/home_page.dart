@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
-import 'components/images_grid_view.dart';
+import 'components/images_animated_grid_view.dart';
 import 'components/sliver_header_delegate.dart';
 import 'home_controller.dart';
 
@@ -25,8 +25,8 @@ class _HomePageState extends ModularState<HomePage, HomeController>
   @override
   void initState() {
     super.initState();
-    _fadeInAnimationDuraion = controller.animationParameters.fadeInDuration;
-    _animationDuration = controller.animationParameters.duration;
+    _fadeInAnimationDuraion = controller.animationsParameters.fadeInDuration;
+    _animationDuration = controller.animationsParameters.duration;
     _scrollController = ScrollController();
     _fadeInAnimationController = AnimationController(
       vsync: this,
@@ -52,6 +52,7 @@ class _HomePageState extends ModularState<HomePage, HomeController>
           controller: _scrollController!,
           slivers: [
             SliverPersistentHeader(
+              key: UniqueKey(),
               floating: true,
               delegate: SliverHeaderDelegate(
                 scrollController: _scrollController!,
@@ -62,7 +63,7 @@ class _HomePageState extends ModularState<HomePage, HomeController>
             ),
             SliverToBoxAdapter(
               key: UniqueKey(),
-              child: ImagesGridView(
+              child: ImagesAnimatedGridView(
                 key: UniqueKey(),
                 animation: _fadeInAnimation!,
                 tweenScale: _tweenScale!,

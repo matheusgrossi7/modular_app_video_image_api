@@ -6,8 +6,8 @@ part 'home_controller.g.dart';
 class HomeController = _HomeController with _$HomeController;
 
 abstract class _HomeController with Store {
-  _HomeController(this.animationParameters);
-  final AnimationsParametersI animationParameters;
+  _HomeController(this.animationsParameters);
+  final AnimationsParametersI animationsParameters;
 
   @observable
   ObservableList<String> imagesUrls = [

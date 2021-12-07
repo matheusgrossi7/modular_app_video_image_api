@@ -6,6 +6,6 @@ part 'favorites_controller.g.dart';
 class FavoritesController = _FavoritesController with _$FavoritesController;
 
 abstract class _FavoritesController with Store {
-  _FavoritesController(this.animationParameters);
-  final AnimationsParametersI animationParameters;
+  _FavoritesController(this.animationsParameters);
+  final AnimationsParametersI animationsParameters;
 }

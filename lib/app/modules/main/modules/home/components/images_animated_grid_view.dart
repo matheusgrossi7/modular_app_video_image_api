@@ -4,8 +4,8 @@ import 'package:flutter_modular/flutter_modular.dart';
 
 import '../home_controller.dart';
 
-class ImagesGridView extends StatefulWidget {
-  const ImagesGridView({
+class ImagesAnimatedGridView extends StatefulWidget {
+  const ImagesAnimatedGridView({
     Key? key,
     required this.animation,
     required this.tweenScale,
@@ -16,10 +16,11 @@ class ImagesGridView extends StatefulWidget {
   final Duration tweenDuration;
 
   @override
-  State<ImagesGridView> createState() => _ImagesGridViewState();
+  State<ImagesAnimatedGridView> createState() => _ImagesAnimatedGridViewState();
 }
 
-class _ImagesGridViewState extends ModularState<ImagesGridView, HomeController>
+class _ImagesAnimatedGridViewState
+    extends ModularState<ImagesAnimatedGridView, HomeController>
     with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {

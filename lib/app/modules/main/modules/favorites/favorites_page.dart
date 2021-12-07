@@ -21,7 +21,7 @@ class _FavoritesPageState
   @override
   void initState() {
     super.initState();
-    _fadeInAnimationDuraion = controller.animationParameters.fadeInDuration;
+    _fadeInAnimationDuraion = controller.animationsParameters.fadeInDuration;
     _fadeInAnimationController = AnimationController(
       vsync: this,
       duration: _fadeInAnimationDuraion,
