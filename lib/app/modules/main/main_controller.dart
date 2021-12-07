@@ -1,5 +1,6 @@
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
+import 'package:test_modular_app_video_image_api/app/shared/animations/animations_parameters.dart';
 
 part 'main_controller.g.dart';
 
@@ -10,21 +11,24 @@ abstract class _MainController with Store {
   int currentPageIndex = 0;
 
   @observable
-  bool isPageTransitionAnimationReversed = false;
+  int currentBottomNavIndex = 0;
+
+  @observable
+  bool isAnimationConcluded = true;
 
   @action
+  setIsAnimationConcluded(bool value) {
+    isAnimationConcluded = value;
+  }
+
   void init() {
     Modular.to.navigate("/home/");
   }
 
-  @action
-  void changeCurrentPageIndex(int newIndex) {
-    if (newIndex > currentPageIndex) {
-      isPageTransitionAnimationReversed = false;
-    } else if (newIndex < currentPageIndex) {
-      isPageTransitionAnimationReversed = true;
-    }
+  Future<void> changeCurrentPageIndex(int newIndex) async {
     if (newIndex != currentPageIndex) {
+      currentBottomNavIndex = newIndex;
+      await Future.delayed(AnimationParameters.fadeOutDuration);
       currentPageIndex = newIndex;
       switch (currentPageIndex) {
         case 0:

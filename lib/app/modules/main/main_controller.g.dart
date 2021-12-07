@@ -24,20 +24,37 @@ mixin _$MainController on _MainController, Store {
     });
   }
 
-  final _$isPageTransitionAnimationReversedAtom =
-      Atom(name: '_MainController.isPageTransitionAnimationReversed');
+  final _$currentBottomNavIndexAtom =
+      Atom(name: '_MainController.currentBottomNavIndex');
 
   @override
-  bool get isPageTransitionAnimationReversed {
-    _$isPageTransitionAnimationReversedAtom.reportRead();
-    return super.isPageTransitionAnimationReversed;
+  int get currentBottomNavIndex {
+    _$currentBottomNavIndexAtom.reportRead();
+    return super.currentBottomNavIndex;
   }
 
   @override
-  set isPageTransitionAnimationReversed(bool value) {
-    _$isPageTransitionAnimationReversedAtom
-        .reportWrite(value, super.isPageTransitionAnimationReversed, () {
-      super.isPageTransitionAnimationReversed = value;
+  set currentBottomNavIndex(int value) {
+    _$currentBottomNavIndexAtom.reportWrite(value, super.currentBottomNavIndex,
+        () {
+      super.currentBottomNavIndex = value;
+    });
+  }
+
+  final _$isAnimationConcludedAtom =
+      Atom(name: '_MainController.isAnimationConcluded');
+
+  @override
+  bool get isAnimationConcluded {
+    _$isAnimationConcludedAtom.reportRead();
+    return super.isAnimationConcluded;
+  }
+
+  @override
+  set isAnimationConcluded(bool value) {
+    _$isAnimationConcludedAtom.reportWrite(value, super.isAnimationConcluded,
+        () {
+      super.isAnimationConcluded = value;
     });
   }
 
@@ -45,22 +62,11 @@ mixin _$MainController on _MainController, Store {
       ActionController(name: '_MainController');
 
   @override
-  void init() {
+  dynamic setIsAnimationConcluded(bool value) {
     final _$actionInfo = _$_MainControllerActionController.startAction(
-        name: '_MainController.init');
+        name: '_MainController.setIsAnimationConcluded');
     try {
-      return super.init();
-    } finally {
-      _$_MainControllerActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  void changeCurrentPageIndex(int newIndex) {
-    final _$actionInfo = _$_MainControllerActionController.startAction(
-        name: '_MainController.changeCurrentPageIndex');
-    try {
-      return super.changeCurrentPageIndex(newIndex);
+      return super.setIsAnimationConcluded(value);
     } finally {
       _$_MainControllerActionController.endAction(_$actionInfo);
     }
@@ -70,7 +76,8 @@ mixin _$MainController on _MainController, Store {
   String toString() {
     return '''
 currentPageIndex: ${currentPageIndex},
-isPageTransitionAnimationReversed: ${isPageTransitionAnimationReversed}
+currentBottomNavIndex: ${currentBottomNavIndex},
+isAnimationConcluded: ${isAnimationConcluded}
     ''';
   }
 }

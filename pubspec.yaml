@@ -37,7 +37,6 @@ dependencies:
   flutter_modular: ^4.2.0
   flutter_mobx: ^2.0.2
   mobx_codegen: ^2.0.4
-  animations: ^2.0.2
 
 dev_dependencies:
   flutter_test:

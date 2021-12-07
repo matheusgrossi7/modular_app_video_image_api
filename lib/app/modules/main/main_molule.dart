@@ -1,9 +1,9 @@
 import 'package:flutter_modular/flutter_modular.dart';
 
-import 'home/home_module.dart';
-import 'favorites/favorites_module.dart';
 import 'main_controller.dart';
 import 'main_page.dart';
+import 'modules/favorites/favorites_module.dart';
+import 'modules/home/home_module.dart';
 
 class MainModule extends Module {
   @override
@@ -18,16 +18,15 @@ class MainModule extends Module {
         ChildRoute(
           '/',
           child: (context, args) => const MainPage(),
+          transition: TransitionType.noTransition,
           children: [
             ModuleRoute(
-              '/home',
+              '/home/',
               module: HomeModule(),
-              transition: TransitionType.noTransition,
             ),
             ModuleRoute(
-              '/favorites',
+              '/favorites/',
               module: FavoritesModule(),
-              transition: TransitionType.noTransition,
             ),
           ],
         ),
