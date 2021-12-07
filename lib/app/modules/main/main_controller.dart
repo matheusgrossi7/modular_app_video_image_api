@@ -1,7 +1,8 @@
 import 'package:flutter/animation.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
-import 'package:test_modular_app_video_image_api/app/shared/animations/animations_parameters_interface.dart';
+import 'package:test_modular_app_video_image_api/app/modules/main/main_molule.dart';
+import 'package:test_modular_app_video_image_api/app/shared/exports.dart';
 
 part 'main_controller.g.dart';
 
@@ -26,35 +27,37 @@ abstract class _MainController with Store {
   }
 
   void init() {
-    Modular.to.navigate("/home/");
+    Modular.to.navigate(MainModule.homePageRouteName);
   }
 
   Future<void> changeCurrentPageIndex({
     required int newIndex,
     required AnimationController fadeOutAnimationController,
   }) async {
+    Duration _fadeOutAnimationDuration = animationsParameters.fadeOutDuration;
+    Duration _animationDuration = animationsParameters.duration;
     if (newIndex != currentBottomNavIndex && isAnimationConcluded) {
       isAnimationConcluded = false;
-      fadeOutAnimationController.duration =
-          animationsParameters.fadeOutDuration;
+      fadeOutAnimationController.duration = _fadeOutAnimationDuration;
       fadeOutAnimationController.forward();
       currentBottomNavIndex = newIndex;
-      await Future.delayed(animationsParameters.fadeOutDuration);
+      await Future.delayed(_fadeOutAnimationDuration);
       currentPageIndex = newIndex;
       switch (currentPageIndex) {
         case 0:
-          Modular.to.navigate("/home/");
+          Modular.to.navigate(MainModule.homePageRouteName);
           break;
         case 1:
-          Modular.to.navigate("/favorites/");
+          Modular.to.navigate(MainModule.favoritesPageRouteName);
           break;
         default:
-          Modular.to.navigate("/home");
+          Modular.to.navigate(MainModule.homePageRouteName);
           break;
       }
       fadeOutAnimationController.duration = const Duration(milliseconds: 0);
       fadeOutAnimationController.reverse();
-      await Future.delayed(animationsParameters.duration);
+      await Future.delayed(_animationDuration);
+      await Future.delayed(_fadeOutAnimationDuration);
       isAnimationConcluded = true;
     }
   }

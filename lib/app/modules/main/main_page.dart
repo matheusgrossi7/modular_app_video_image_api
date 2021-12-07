@@ -27,7 +27,7 @@ class _MainPageState extends ModularState<MainPage, MainController>
       vsync: this,
       duration: _fadeOutAnimationDuration,
     );
-    _tweenFadeOut = Tween<double>(begin: 1, end: 0);
+    _tweenFadeOut = controller.animationsParameters.tweenFadeOut;
     _fadeOutAnimation = _tweenFadeOut!.animate(_fadeOutAnimationController!);
   }
 

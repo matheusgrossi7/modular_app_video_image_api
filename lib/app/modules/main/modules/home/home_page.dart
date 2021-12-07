@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:test_modular_app_video_image_api/app/shared/exports.dart';
 
-import 'components/images_animated_grid_view.dart';
-import 'components/sliver_header_delegate.dart';
+import 'components/exports.dart';
 import 'home_controller.dart';
 
 class HomePage extends StatefulWidget {
@@ -16,8 +16,8 @@ class _HomePageState extends ModularState<HomePage, HomeController>
     with SingleTickerProviderStateMixin {
   AnimationController? _fadeInAnimationController;
   Animation<double>? _fadeInAnimation;
-  Tween<double>? _tweenFade;
-  Tween<double>? _tweenScale;
+  Tween<double>? _tweenFadeIn;
+  Tween<double>? _tweenScaleUp;
   ScrollController? _scrollController;
   Duration? _fadeInAnimationDuraion;
   Duration? _animationDuration;
@@ -32,9 +32,9 @@ class _HomePageState extends ModularState<HomePage, HomeController>
       vsync: this,
       duration: _fadeInAnimationDuraion,
     );
-    _tweenScale = Tween<double>(begin: 0.92, end: 1);
-    _tweenFade = Tween<double>(begin: 0, end: 1);
-    _fadeInAnimation = _tweenFade!.animate(_fadeInAnimationController!);
+    _tweenScaleUp = controller.animationsParameters.tweenScaleUp;
+    _tweenFadeIn = controller.animationsParameters.tweenFadeIn;
+    _fadeInAnimation = _tweenFadeIn!.animate(_fadeInAnimationController!);
     _fadeInAnimationController!.forward();
   }
 
@@ -59,15 +59,19 @@ class _HomePageState extends ModularState<HomePage, HomeController>
                 animation: _fadeInAnimation!,
                 animationDuration: _animationDuration!,
                 expandedHeight: 56,
+                curve: controller.animationsParameters.curve,
               ),
             ),
             SliverToBoxAdapter(
               key: UniqueKey(),
-              child: ImagesAnimatedGridView(
+              child: FadeScaleTransition(
                 key: UniqueKey(),
                 animation: _fadeInAnimation!,
-                tweenScale: _tweenScale!,
+                tweenScale: _tweenScaleUp!,
                 tweenDuration: _fadeInAnimationDuraion!,
+                child: ImagesGridView(
+                  key: UniqueKey(),
+                ),
               ),
             )
           ],

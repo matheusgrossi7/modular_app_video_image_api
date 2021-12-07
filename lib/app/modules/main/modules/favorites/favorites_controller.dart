@@ -1,5 +1,5 @@
 import 'package:mobx/mobx.dart';
-import 'package:test_modular_app_video_image_api/app/shared/animations/animations_parameters_interface.dart';
+import 'package:test_modular_app_video_image_api/app/shared/exports.dart';
 
 part 'favorites_controller.g.dart';
 

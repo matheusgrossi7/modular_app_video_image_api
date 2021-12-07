@@ -15,7 +15,7 @@ class _FavoritesPageState
     with SingleTickerProviderStateMixin {
   AnimationController? _fadeInAnimationController;
   Animation<double>? _fadeInAnimation;
-  Tween<double>? _tweenFade;
+  Tween<double>? _tweenFadeIn;
   Duration? _fadeInAnimationDuraion;
 
   @override
@@ -26,8 +26,8 @@ class _FavoritesPageState
       vsync: this,
       duration: _fadeInAnimationDuraion,
     );
-    _tweenFade = Tween<double>(begin: 0.5, end: 1);
-    _fadeInAnimation = _tweenFade!.animate(_fadeInAnimationController!);
+    _tweenFadeIn = controller.animationsParameters.tweenFadeIn;
+    _fadeInAnimation = _tweenFadeIn!.animate(_fadeInAnimationController!);
     _fadeInAnimationController!.forward();
   }
 
