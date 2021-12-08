@@ -7,4 +7,3 @@ Main concepts and things that I intend to put into practice:
 - Consume a RESTful JSON API that provide videos and images.
 - Modular app, being more specific, to create an app using the package [flutter_modular](https://pub.dev/packages/flutter_modular).
 - Use the package [flutter_mobx](https://pub.dev/packages/flutter_mobx) for state management.
-- Unit tests.
