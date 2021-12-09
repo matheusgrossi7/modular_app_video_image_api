@@ -65,15 +65,12 @@ class _HomePageState extends ModularState<HomePage, HomeController>
             SliverToBoxAdapter(
               key: UniqueKey(),
               child: FadeScaleTransition(
-                key: UniqueKey(),
                 animation: _fadeInAnimation!,
                 tweenScale: _tweenScaleUp!,
                 tweenDuration: _fadeInAnimationDuraion!,
-                child: ImagesGridView(
-                  key: UniqueKey(),
-                ),
+                child: const ImagesGridView(),
               ),
-            )
+            ),
           ],
         ),
       ),
