@@ -37,7 +37,7 @@ abstract class _MainController with Store {
     Duration _fadeOutAnimationDuration = animationsParameters.fadeOutDuration;
     Duration _animationDuration = animationsParameters.duration;
     if (newIndex != currentBottomNavIndex && isAnimationConcluded) {
-      isAnimationConcluded = false;
+      setIsAnimationConcluded(false);
       fadeOutAnimationController.duration = _fadeOutAnimationDuration;
       fadeOutAnimationController.forward();
       currentBottomNavIndex = newIndex;
@@ -58,7 +58,7 @@ abstract class _MainController with Store {
       fadeOutAnimationController.reverse();
       await Future.delayed(_animationDuration);
       await Future.delayed(_fadeOutAnimationDuration);
-      isAnimationConcluded = true;
+      setIsAnimationConcluded(true);
     }
   }
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:test_modular_app_video_image_api/app/modules/main/modules/home/models/exports.dart';
+import 'package:test_modular_app_video_image_api/app/modules/main/models/exports.dart';
 import 'package:test_modular_app_video_image_api/app/shared/exports.dart';
 
 import '../home_controller.dart';

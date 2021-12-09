@@ -5,6 +5,7 @@ import 'main_controller.dart';
 import 'main_page.dart';
 import 'modules/favorites/favorites_module.dart';
 import 'modules/home/home_module.dart';
+import 'repository/exports.dart';
 
 class MainModule extends Module {
   static const String homePageRouteName = '/home/';
@@ -12,7 +13,10 @@ class MainModule extends Module {
 
   @override
   List<Bind> get binds => [
-        Bind(
+        Bind.singleton(
+          (i) => PixelsRepository(),
+        ),
+        Bind.factory(
           (i) => MainController(i.get<AnimationsParametersI>()),
         ),
       ];

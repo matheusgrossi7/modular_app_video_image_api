@@ -1,8 +1,7 @@
 import 'package:mobx/mobx.dart';
+import 'package:test_modular_app_video_image_api/app/modules/main/models/exports.dart';
+import 'package:test_modular_app_video_image_api/app/modules/main/repository/exports.dart';
 import 'package:test_modular_app_video_image_api/app/shared/exports.dart';
-
-import 'models/exports.dart';
-import 'repository/exports.dart';
 
 part 'home_controller.g.dart';
 
