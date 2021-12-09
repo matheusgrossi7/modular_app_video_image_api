@@ -45,9 +45,12 @@ class _ImagesGridViewState
             ),
             itemBuilder: (BuildContext context, int index) => ClipRRect(
               borderRadius: BorderRadius.circular(0),
-              child: Image.network(
-                _photos[index].url,
-                fit: BoxFit.cover,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(16),
+                child: Image.network(
+                  _photos[index].url,
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
           );
