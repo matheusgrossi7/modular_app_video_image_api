@@ -14,7 +14,7 @@ class MainModule extends Module {
   @override
   List<Bind> get binds => [
         Bind.singleton(
-          (i) => PixelsRepository(),
+          (i) => PexelsRepository(),
         ),
         Bind.factory(
           (i) => MainController(i.get<AnimationsParametersI>()),

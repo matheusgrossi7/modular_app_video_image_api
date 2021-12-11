@@ -7,7 +7,7 @@ import 'media_repository_interface.dart';
 import 'credentials.dart';
 import '../models/exports.dart';
 
-class PixelsRepository extends MediaRepositoryI {
+class PexelsRepository extends MediaRepositoryI {
   PhotosResponse? _loadedPhotos;
 
   @override
@@ -17,50 +17,53 @@ class PixelsRepository extends MediaRepositoryI {
     required int page,
     bool update = false,
   }) async {
-    int? _responseHeight;
-    int? _responseWidth;
+    int? _responseImageHeight;
+    int? _responseImageWidth;
     PhotosResponse? _photosResponse;
     List<dynamic> _jsonPhotos;
-    http.Response _response;
+    String? _url;
+    http.Response _httpResponse;
     List<PhotoModel> _photos = [];
     if (_loadedPhotos == null || update == true) {
-      final String _url = "https://api.pexels.com/v1/search?query=" +
+      _url = "https://api.pexels.com/v1/search?query=" +
           search +
           "&page=" +
           page.toString() +
           "&per_page=" +
           perPage.toString();
       try {
-        _response = await http.get(
+        _httpResponse = await http.get(
           Uri.parse(_url),
           headers: {
             HttpHeaders.authorizationHeader:
                 HomeRepositoryCredentials.pixelsApiKey,
           },
         );
-        if (_response.statusCode == 200) {
-          _jsonPhotos = jsonDecode(_response.body)["photos"];
+        if (_httpResponse.statusCode == 200) {
+          _jsonPhotos = jsonDecode(_httpResponse.body)["photos"];
           for (var map in _jsonPhotos) {
-            _responseHeight = map["height"]!;
-            _responseWidth = map["width"]!;
+            _responseImageHeight = map["height"]!;
+            _responseImageWidth = map["width"]!;
             _photos.add(
               PhotoModel(
                 avgHexColor: map["avg_color"]!,
-                height: _responseHeight!.toDouble(),
+                height: _responseImageHeight!.toDouble(),
                 source: "pexels.com",
-                url: map["src"]["medium"],
-                width: _responseWidth!.toDouble(),
+                urlMediumSize: map["src"]["medium"],
+                urlOriginalSize: map["src"]["original"],
+                urlLargeSize: map["src"]["large"],
+                width: _responseImageWidth!.toDouble(),
                 urlPhotoPage: map["url"]!,
               ),
             );
           }
         }
       } on Exception {
-        _response = http.Response("", 400);
+        _httpResponse = http.Response("", 400);
       }
       _photosResponse = PhotosResponse(
         photos: _photos,
-        responseStatusCode: _response.statusCode,
+        responseStatusCode: _httpResponse.statusCode,
       );
       _loadedPhotos = _photosResponse;
     } else {

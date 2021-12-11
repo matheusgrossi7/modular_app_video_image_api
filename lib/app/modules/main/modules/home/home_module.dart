@@ -3,13 +3,13 @@ import 'package:test_modular_app_video_image_api/app/modules/main/repository/exp
 import 'package:test_modular_app_video_image_api/app/shared/exports.dart';
 
 import 'home_controller.dart';
-import 'home_page.dart';
+import 'home_future_page.dart';
 
 class HomeModule extends Module {
   @override
   List<Bind> get binds => [
         Bind.instance(
-          (i) => i.get<PixelsRepository>(),
+          (i) => i.get<PexelsRepository>(),
         ),
         Bind.singleton(
           (i) => HomeController(
@@ -21,7 +21,7 @@ class HomeModule extends Module {
   List<ModularRoute> get routes => [
         ChildRoute(
           '/',
-          child: (context, args) => const HomePage(),
+          child: (context, args) => const HomeFuturePage(),
         ),
       ];
 }

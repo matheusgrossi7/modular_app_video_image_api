@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 class FadeScaleTransition extends StatefulWidget {
   const FadeScaleTransition({
     Key? key,
-    required this.animation,
-    required this.tweenScale,
-    required this.tweenDuration,
+    required this.fadeInAnimation,
+    required this.tweenScaleUp,
+    required this.fadeInAnimationDuration,
     required this.child,
   }) : super(key: key);
-  final Animation<double> animation;
-  final Tween<double> tweenScale;
-  final Duration tweenDuration;
+  final Animation<double> fadeInAnimation;
+  final Tween<double> tweenScaleUp;
+  final Duration fadeInAnimationDuration;
   final Widget child;
 
   @override
@@ -22,10 +22,10 @@ class _FadeScaleTransitionState extends State<FadeScaleTransition>
   @override
   Widget build(BuildContext context) {
     return FadeTransition(
-      opacity: widget.animation,
+      opacity: widget.fadeInAnimation,
       child: TweenAnimationBuilder(
-        tween: widget.tweenScale,
-        duration: widget.tweenDuration,
+        tween: widget.tweenScaleUp,
+        duration: widget.fadeInAnimationDuration,
         builder: (BuildContext context, double scale, Widget? child) {
           return Transform.scale(
             scale: scale,
