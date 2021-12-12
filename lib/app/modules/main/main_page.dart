@@ -22,7 +22,6 @@ class _MainPageState extends ModularState<MainPage, MainController>
   void initState() {
     super.initState();
     _fadeOutAnimationDuration = controller.animationsParameters.fadeOutDuration;
-    controller.init();
     _fadeOutAnimationController = AnimationController(
       vsync: this,
       duration: _fadeOutAnimationDuration,

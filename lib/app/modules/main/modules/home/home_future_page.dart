@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:flutter_modular/flutter_modular.dart';
-import 'package:mobx/mobx.dart';
-import 'package:test_modular_app_video_image_api/app/modules/main/models/exports.dart';
+import 'package:test_modular_app_video_image_api/app/modules/main/modules/home/home_controller.dart';
+import 'package:test_modular_app_video_image_api/app/shared/exports.dart';
 
+import 'home_module.dart';
+import 'utils/enums/exports.dart';
 import 'components/exports.dart';
-import 'home_controller.dart';
 
 class HomeFuturePage extends StatefulWidget {
   const HomeFuturePage({
@@ -17,7 +17,7 @@ class HomeFuturePage extends StatefulWidget {
   State<HomeFuturePage> createState() => _HomeFuturePageState();
 }
 
-class _HomeFuturePageState extends ModularState<HomeFuturePage, HomeController>
+class _HomeFuturePageState extends State<HomeFuturePage>
     with SingleTickerProviderStateMixin {
   AnimationController? _fadeInAnimationController;
   Animation<double>? _fadeInAnimation;
@@ -26,12 +26,12 @@ class _HomeFuturePageState extends ModularState<HomeFuturePage, HomeController>
   ScrollController? _scrollController;
   Duration? _fadeInAnimationDuration;
   Curve? _curve;
-  ObservableFuture<PhotosResponse>? _futurePhotosResponse;
+  // Temporary workaround, more info in home_module.dart
+  HomeController controller = homeController;
 
   @override
   void initState() {
     super.initState();
-    _futurePhotosResponse = controller.photos;
     _fadeInAnimationDuration = controller.animationsParameters.fadeInDuration;
     _curve = controller.animationsParameters.curve;
     _scrollController = ScrollController();
@@ -65,27 +65,28 @@ class _HomeFuturePageState extends ModularState<HomeFuturePage, HomeController>
         body: SafeArea(
           child: Observer(
             builder: (BuildContext context) {
-              Widget _widget;
-              if (_futurePhotosResponse!.status == FutureStatus.fulfilled) {
-                PhotosResponse _photosResponse = _futurePhotosResponse!.value!;
-                if (_photosResponse.responseStatusCode == 200) {
-                  _widget = HomePage(
-                    scrollController: _scrollController!,
-                    fadeInAnimation: _fadeInAnimation!,
-                    curve: _curve!,
-                    fadeInAnimationDuration: _fadeInAnimationDuration!,
-                    tweenScaleUp: _tweenScaleUp!,
-                    photos: _photosResponse.photos,
-                  );
-                } else {
-                  _widget = const Text("Sem conexão");
-                }
-              } else {
-                _widget = const Center(
-                  child: CircularProgressIndicator(),
+              Widget? _widget;
+              if (controller.homeStatus == HomeStatus.loading) {
+                _widget = LoadingIndicator(
+                  fadeInAnimation: _fadeInAnimation!,
+                  fadeInAnimationDuration: _fadeInAnimationDuration!,
+                  tweenScaleUp: _tweenScaleUp!,
+                );
+              } else if (controller.homeStatus == HomeStatus.success) {
+                _widget = HomePage(
+                  scrollController: _scrollController!,
+                  fadeInAnimation: _fadeInAnimation!,
+                  curve: _curve!,
+                  fadeInAnimationDuration: _fadeInAnimationDuration!,
+                  tweenScaleUp: _tweenScaleUp!,
+                  photos: controller.photos!,
+                );
+              } else if (controller.homeStatus == HomeStatus.error) {
+                _widget = ConnectionErrorPlaceholder(
+                  refresh: controller.refresh,
                 );
               }
-              return _widget;
+              return _widget!;
             },
           ),
         ),

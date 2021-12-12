@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:test_modular_app_video_image_api/app/shared/exports.dart';
 
+import 'exports.dart';
+
 class ImagesSliverGridView extends StatelessWidget {
   const ImagesSliverGridView({
     Key? key,
@@ -20,29 +22,9 @@ class ImagesSliverGridView extends StatelessWidget {
         mainAxisSpacing: 8,
         children: photos
             .map(
-              (photo) => ClipRRect(
-                borderRadius: BorderRadius.circular(12),
-                child: Stack(
-                  children: [
-                    Container(
-                      color: Color(
-                        int.parse(
-                          "0xFF" + photo.avgHexColor.substring(1),
-                        ),
-                      ),
-                    ),
-                    FadeInImage.assetNetwork(
-                      image: photo.urlMediumSize,
-                      width: double.maxFinite,
-                      height: double.maxFinite,
-                      key: UniqueKey(),
-                      fit: BoxFit.cover,
-                      fadeInDuration: animationDuration,
-                      fadeOutDuration: animationDuration,
-                      placeholder: "assets/images/transparent.png",
-                    ),
-                  ],
-                ),
+              (photo) => ImageGridItem(
+                photo: photo,
+                animationDuration: animationDuration,
               ),
             )
             .toList(),

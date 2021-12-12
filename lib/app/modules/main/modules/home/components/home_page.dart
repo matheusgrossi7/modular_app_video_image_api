@@ -35,7 +35,6 @@ class HomePage extends StatelessWidget {
             delegate: SliverHeaderDelegate(
               scrollController: scrollController,
               animationDuration: fadeInAnimationDuration,
-              expandedHeight: 56 + 8,
               curve: curve,
             ),
           ),

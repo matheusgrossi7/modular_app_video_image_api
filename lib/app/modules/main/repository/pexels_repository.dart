@@ -8,29 +8,36 @@ import 'credentials.dart';
 import '../models/exports.dart';
 
 class PexelsRepository extends MediaRepositoryI {
-  PhotosResponse? _loadedPhotos;
+  PhotosResponse? _loadedPhotosResponse;
 
   @override
   Future<PhotosResponse> fetchImages({
-    required String search,
+    String? search,
     required int perPage,
     required int page,
-    bool update = false,
   }) async {
     int? _responseImageHeight;
     int? _responseImageWidth;
+    String? _responseImageAvgHexColor;
     PhotosResponse? _photosResponse;
     List<dynamic> _jsonPhotos;
     String? _url;
     http.Response _httpResponse;
     List<PhotoModel> _photos = [];
-    if (_loadedPhotos == null || update == true) {
-      _url = "https://api.pexels.com/v1/search?query=" +
-          search +
-          "&page=" +
-          page.toString() +
-          "&per_page=" +
-          perPage.toString();
+    if (_loadedPhotosResponse == null || search != null) {
+      if (search == null) {
+        _url = "https://api.pexels.com/v1/curated?page=" +
+            page.toString() +
+            "&per_page=" +
+            perPage.toString();
+      } else {
+        _url = "https://api.pexels.com/v1/search?query=" +
+            search +
+            "&page=" +
+            page.toString() +
+            "&per_page=" +
+            perPage.toString();
+      }
       try {
         _httpResponse = await http.get(
           Uri.parse(_url),
@@ -44,9 +51,12 @@ class PexelsRepository extends MediaRepositoryI {
           for (var map in _jsonPhotos) {
             _responseImageHeight = map["height"]!;
             _responseImageWidth = map["width"]!;
+            _responseImageAvgHexColor = map["avg_color"]!;
             _photos.add(
               PhotoModel(
-                avgHexColor: map["avg_color"]!,
+                avgHexColor: int.parse(
+                  "0xFF" + _responseImageAvgHexColor!.substring(1),
+                ),
                 height: _responseImageHeight!.toDouble(),
                 source: "pexels.com",
                 urlMediumSize: map["src"]["medium"],
@@ -65,19 +75,18 @@ class PexelsRepository extends MediaRepositoryI {
         photos: _photos,
         responseStatusCode: _httpResponse.statusCode,
       );
-      _loadedPhotos = _photosResponse;
+      _loadedPhotosResponse = _photosResponse;
     } else {
-      _photosResponse = _loadedPhotos;
+      _photosResponse = _loadedPhotosResponse;
     }
     return Future.value(_photosResponse);
   }
 
   @override
   Future<List<T>> fetchVideos<T>({
-    required String search,
+    String? search,
     required int perPage,
     required int page,
-    bool update = false,
   }) {
     // TODO: implement fetchVideos
     throw UnimplementedError();

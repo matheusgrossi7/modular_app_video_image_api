@@ -9,8 +9,12 @@ part 'main_controller.g.dart';
 class MainController = _MainController with _$MainController;
 
 abstract class _MainController with Store {
-  _MainController(this.animationsParameters);
+  _MainController(this.animationsParameters) {
+    Modular.to.navigate(MainModule.homeModuleRouteName);
+  }
   AnimationsParametersI animationsParameters;
+
+  bool _isAnimationConcluded = true;
 
   @observable
   int currentPageIndex = 0;
@@ -18,26 +22,15 @@ abstract class _MainController with Store {
   @observable
   int currentBottomNavIndex = 0;
 
-  @observable
-  bool isAnimationConcluded = true;
-
   @action
-  setIsAnimationConcluded(bool value) {
-    isAnimationConcluded = value;
-  }
-
-  void init() {
-    Modular.to.navigate(MainModule.homePageRouteName);
-  }
-
   Future<void> changeCurrentPageIndex({
     required int newIndex,
     required AnimationController fadeOutAnimationController,
   }) async {
     Duration _fadeOutAnimationDuration = animationsParameters.fadeOutDuration;
     Duration _animationDuration = animationsParameters.duration;
-    if (newIndex != currentBottomNavIndex && isAnimationConcluded) {
-      setIsAnimationConcluded(false);
+    if (newIndex != currentBottomNavIndex && _isAnimationConcluded) {
+      _isAnimationConcluded = false;
       fadeOutAnimationController.duration = _fadeOutAnimationDuration;
       fadeOutAnimationController.forward();
       currentBottomNavIndex = newIndex;
@@ -45,20 +38,20 @@ abstract class _MainController with Store {
       currentPageIndex = newIndex;
       switch (currentPageIndex) {
         case 0:
-          Modular.to.navigate(MainModule.homePageRouteName);
+          Modular.to.navigate(MainModule.homeModuleRouteName);
           break;
         case 1:
-          Modular.to.navigate(MainModule.favoritesPageRouteName);
+          Modular.to.navigate(MainModule.favoritesModuleRouteName);
           break;
         default:
-          Modular.to.navigate(MainModule.homePageRouteName);
+          Modular.to.navigate(MainModule.homeModuleRouteName);
           break;
       }
       fadeOutAnimationController.duration = const Duration(milliseconds: 0);
       fadeOutAnimationController.reverse();
       await Future.delayed(_animationDuration);
       await Future.delayed(_fadeOutAnimationDuration);
-      setIsAnimationConcluded(true);
+      _isAnimationConcluded = true;
     }
   }
 }

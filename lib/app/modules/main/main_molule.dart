@@ -8,15 +8,15 @@ import 'modules/home/home_module.dart';
 import 'repository/exports.dart';
 
 class MainModule extends Module {
-  static const String homePageRouteName = '/home/';
-  static const String favoritesPageRouteName = '/favorites/';
+  static const String homeModuleRouteName = '/home/';
+  static const String favoritesModuleRouteName = '/favorites/';
 
   @override
   List<Bind> get binds => [
         Bind.singleton(
           (i) => PexelsRepository(),
         ),
-        Bind.factory(
+        Bind.singleton(
           (i) => MainController(i.get<AnimationsParametersI>()),
         ),
       ];
@@ -29,11 +29,11 @@ class MainModule extends Module {
           transition: TransitionType.noTransition,
           children: [
             ModuleRoute(
-              homePageRouteName,
+              homeModuleRouteName,
               module: HomeModule(),
             ),
             ModuleRoute(
-              favoritesPageRouteName,
+              favoritesModuleRouteName,
               module: FavoritesModule(),
             ),
           ],

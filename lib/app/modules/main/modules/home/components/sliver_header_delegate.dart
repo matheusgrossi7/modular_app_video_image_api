@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
+import 'exports.dart';
 
 class SliverHeaderDelegate extends SliverPersistentHeaderDelegate {
   SliverHeaderDelegate({
-    required this.expandedHeight,
     required this.scrollController,
     required this.animationDuration,
     required this.curve,
   });
-  final double expandedHeight;
   final ScrollController scrollController;
   final Duration animationDuration;
   final Curve curve;
+  final double expandedHeight = 64;
 
   void _scrollAnimateToTop() {
     if (scrollController.offset != scrollController.initialScrollOffset) {
@@ -20,14 +20,6 @@ class SliverHeaderDelegate extends SliverPersistentHeaderDelegate {
         curve: curve,
       );
     }
-  }
-
-  void _onTap() {
-    _scrollAnimateToTop();
-  }
-
-  void _onChanged(String string) {
-    _scrollAnimateToTop();
   }
 
   @override
@@ -58,17 +50,10 @@ class SliverHeaderDelegate extends SliverPersistentHeaderDelegate {
                 color: Theme.of(context).unselectedWidgetColor,
               ),
               const SizedBox(width: 16),
-              Flexible(
-                child: TextFormField(
-                  textInputAction: TextInputAction.search,
-                  onChanged: (String string) => _onChanged(string),
-                  onTap: _onTap,
-                  decoration: const InputDecoration(
-                    hintText: "Pesquisar",
-                    border: InputBorder.none,
-                  ),
-                ),
+              SearchBarTextField(
+                scrollAnimateToTop: _scrollAnimateToTop,
               ),
+              const SizedBox(width: 16),
               InkWell(
                 onTap: () {},
                 child: Icon(

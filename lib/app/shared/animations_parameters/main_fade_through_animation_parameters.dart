@@ -13,10 +13,10 @@ class MainFadeThroughAnimationParameters extends AnimationsParametersI {
   Duration get fadeOutDuration => const Duration(milliseconds: 90);
 
   @override
-  Tween<double> get tweenFadeOut => Tween<double>(begin: 1, end: 0);
+  Tween<double> get tweenFadeOut => Tween<double>(begin: 1, end: 0.4);
 
   @override
-  Tween<double> get tweenFadeIn => Tween<double>(begin: 0, end: 1);
+  Tween<double> get tweenFadeIn => Tween<double>(begin: 0.2, end: 1);
 
   @override
   Tween<double> get tweenScaleUp => Tween<double>(begin: 0.92, end: 1);

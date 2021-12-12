@@ -41,43 +41,24 @@ mixin _$MainController on _MainController, Store {
     });
   }
 
-  final _$isAnimationConcludedAtom =
-      Atom(name: '_MainController.isAnimationConcluded');
+  final _$changeCurrentPageIndexAsyncAction =
+      AsyncAction('_MainController.changeCurrentPageIndex');
 
   @override
-  bool get isAnimationConcluded {
-    _$isAnimationConcludedAtom.reportRead();
-    return super.isAnimationConcluded;
-  }
-
-  @override
-  set isAnimationConcluded(bool value) {
-    _$isAnimationConcludedAtom.reportWrite(value, super.isAnimationConcluded,
-        () {
-      super.isAnimationConcluded = value;
-    });
-  }
-
-  final _$_MainControllerActionController =
-      ActionController(name: '_MainController');
-
-  @override
-  dynamic setIsAnimationConcluded(bool value) {
-    final _$actionInfo = _$_MainControllerActionController.startAction(
-        name: '_MainController.setIsAnimationConcluded');
-    try {
-      return super.setIsAnimationConcluded(value);
-    } finally {
-      _$_MainControllerActionController.endAction(_$actionInfo);
-    }
+  Future<void> changeCurrentPageIndex(
+      {required int newIndex,
+      required AnimationController fadeOutAnimationController}) {
+    return _$changeCurrentPageIndexAsyncAction.run(() => super
+        .changeCurrentPageIndex(
+            newIndex: newIndex,
+            fadeOutAnimationController: fadeOutAnimationController));
   }
 
   @override
   String toString() {
     return '''
 currentPageIndex: ${currentPageIndex},
-currentBottomNavIndex: ${currentBottomNavIndex},
-isAnimationConcluded: ${isAnimationConcluded}
+currentBottomNavIndex: ${currentBottomNavIndex}
     ''';
   }
 }

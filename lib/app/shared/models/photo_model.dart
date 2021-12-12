@@ -15,7 +15,7 @@ class PhotoModel {
   final String urlLargeSize;
   final String urlOriginalSize;
   final String source;
-  final String avgHexColor;
+  final int avgHexColor;
   final double width;
   final double height;
 }
