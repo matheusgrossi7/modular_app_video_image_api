@@ -17,6 +17,7 @@ class SearchBarTextField extends StatefulWidget {
 
 class _SearchBarTextFieldState extends State<SearchBarTextField> {
   TextEditingController? _textController;
+  FocusNode? _focusNode;
   // Temporary workaround, more info in home_module.dart
   HomeController controller = homeController;
 
@@ -37,6 +38,7 @@ class _SearchBarTextFieldState extends State<SearchBarTextField> {
   void clearTextFormField() {
     _textController!.clear();
     controller.setSearchFieldInitialValue("");
+    _focusNode!.requestFocus();
   }
 
   @override
@@ -44,6 +46,7 @@ class _SearchBarTextFieldState extends State<SearchBarTextField> {
     _textController = TextEditingController(
       text: controller.searchFieldInitialValue,
     );
+    _focusNode = controller.focusNode;
     super.initState();
   }
 
@@ -54,6 +57,7 @@ class _SearchBarTextFieldState extends State<SearchBarTextField> {
         children: [
           Flexible(
             child: TextFormField(
+              focusNode: _focusNode,
               controller: _textController,
               textInputAction: TextInputAction.search,
               onChanged: (String string) => _onChanged(string),

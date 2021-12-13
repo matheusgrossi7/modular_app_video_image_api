@@ -27,6 +27,7 @@ class HomePage extends StatelessWidget {
       fadeInAnimationDuration: fadeInAnimationDuration,
       tweenScaleUp: tweenScaleUp,
       child: CustomScrollView(
+        keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
         controller: scrollController,
         slivers: [
           SliverPersistentHeader(

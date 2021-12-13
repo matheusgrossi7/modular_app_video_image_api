@@ -6,30 +6,49 @@ class ImageGridItem extends StatelessWidget {
     Key? key,
     required this.photo,
     required this.animationDuration,
+    required this.itemsSpacing,
+    required this.itemWidth,
   }) : super(key: key);
   final PhotoModel photo;
   final Duration animationDuration;
+  final double itemsSpacing;
+  final double itemWidth;
+
+  Size getItemSize(
+      BuildContext context, double mediaWidth, double mediaHeight) {
+    Size size = Size(itemWidth, itemWidth * mediaHeight / mediaWidth);
+    return size;
+  }
 
   @override
   Widget build(BuildContext context) {
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(12),
-      child: Stack(
-        children: [
-          Container(
-            color: Color(photo.avgHexColor),
-          ),
-          FadeInImage.assetNetwork(
-            image: photo.urlMediumSize,
-            width: double.maxFinite,
-            height: double.maxFinite,
-            key: UniqueKey(),
-            fit: BoxFit.cover,
-            fadeInDuration: animationDuration,
-            fadeOutDuration: animationDuration,
-            placeholder: "assets/images/transparent.png",
-          ),
-        ],
+    return ConstrainedBox(
+      constraints: BoxConstraints.tight(
+        getItemSize(
+          context,
+          photo.width,
+          photo.height,
+        ),
+      ),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(12),
+        child: Stack(
+          children: [
+            Container(
+              color: Color(photo.avgHexColor),
+            ),
+            FadeInImage.assetNetwork(
+              image: photo.urlMediumSize,
+              width: double.maxFinite,
+              height: double.maxFinite,
+              key: UniqueKey(),
+              fit: BoxFit.cover,
+              fadeInDuration: animationDuration,
+              fadeOutDuration: animationDuration,
+              placeholder: "assets/images/transparent.png",
+            ),
+          ],
+        ),
       ),
     );
   }

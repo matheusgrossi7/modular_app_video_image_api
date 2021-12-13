@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
 import 'package:test_modular_app_video_image_api/app/modules/main/repository/exports.dart';
 import 'package:test_modular_app_video_image_api/app/shared/exports.dart';
@@ -12,12 +13,15 @@ abstract class _HomeController with Store {
   final AnimationsParametersI animationsParameters;
   final MediaRepositoryI mediaRepositoryI;
 
+  final FocusNode focusNode = FocusNode();
+
   void initialSearch() {
     homeStatus = HomeStatus.loading;
     mediaRepositoryI
         .fetchImages(
       perPage: perPage,
       page: page,
+      search: "kiwi", // this is empty by default, to get the "curated photos"
     )
         .then(
       (response) {
@@ -58,7 +62,7 @@ abstract class _HomeController with Store {
 
   @action
   void refresh() {
-    if (searchFieldInitialValue.isNotEmpty) {
+    if (searchFieldInitialValue.trim().isEmpty) {
       initialSearch();
     } else {
       search(searchFieldInitialValue);
@@ -67,23 +71,27 @@ abstract class _HomeController with Store {
 
   @action
   Future<void> search(String newSearchLabel) async {
-    setHomeStatus(HomeStatus.loading);
-    mediaRepositoryI
-        .fetchImages(
-      search: newSearchLabel,
-      perPage: perPage,
-      page: page,
-    )
-        .then(
-      (response) {
-        if (response.responseStatusCode == 200) {
-          photos = response.photos;
-          setHomeStatus(HomeStatus.success);
-        } else {
-          setHomeStatus(HomeStatus.error);
-        }
-      },
-    );
+    String _newSearchLabelT = newSearchLabel.trim();
+    if (_newSearchLabelT.isNotEmpty) {
+      setHomeStatus(HomeStatus.loading);
+      setSearchFieldInitialValue(_newSearchLabelT);
+      mediaRepositoryI
+          .fetchImages(
+        search: _newSearchLabelT,
+        perPage: perPage,
+        page: page,
+      )
+          .then(
+        (response) {
+          if (response.responseStatusCode == 200) {
+            photos = response.photos;
+            setHomeStatus(HomeStatus.success);
+          } else {
+            setHomeStatus(HomeStatus.error);
+          }
+        },
+      );
+    }
   }
 
   _HomeController(
