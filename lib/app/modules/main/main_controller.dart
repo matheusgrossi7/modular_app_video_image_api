@@ -10,9 +10,6 @@ part 'main_controller.g.dart';
 class MainController = _MainController with _$MainController;
 
 abstract class _MainController with Store {
-  _MainController(this.animationsParameters) {
-    Modular.to.navigate(MainModule.imagesModuleRouteName);
-  }
   AnimationsParametersI animationsParameters;
 
   bool _isAnimationConcluded = true;
@@ -54,5 +51,9 @@ abstract class _MainController with Store {
       await Future.delayed(_fadeOutAnimationDuration);
       _isAnimationConcluded = true;
     }
+  }
+
+  _MainController(this.animationsParameters) {
+    Modular.to.navigate(MainModule.imagesModuleRouteName);
   }
 }

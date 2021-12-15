@@ -16,7 +16,7 @@ class ImagesSliverGridView extends StatelessWidget {
   final int _crossAxisCount = 2;
   final double _padding = 16.0;
 
-  double _childrenWidth(BuildContext context) {
+  double _getChildrenWidth(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
     double tileWidth = (screenWidth -
             (_padding * 2) -
@@ -40,7 +40,7 @@ class ImagesSliverGridView extends StatelessWidget {
                   photo: photo,
                   animationDuration: animationDuration,
                   itemsSpacing: _itemsSpacing,
-                  itemWidth: _childrenWidth(context),
+                  itemWidth: _getChildrenWidth(context),
                 ),
               )
               .toList(),

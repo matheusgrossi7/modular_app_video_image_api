@@ -14,7 +14,7 @@ class ImageGridItem extends StatelessWidget {
   final double itemsSpacing;
   final double itemWidth;
 
-  Size getItemSize(double mediaWidth, double mediaHeight) {
+  Size _getItemSize(double mediaWidth, double mediaHeight) {
     Size size = Size(itemWidth, itemWidth * mediaHeight / mediaWidth);
     return size;
   }
@@ -23,7 +23,7 @@ class ImageGridItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return ConstrainedBox(
       constraints: BoxConstraints.tight(
-        getItemSize(
+        _getItemSize(
           photo.width,
           photo.height,
         ),

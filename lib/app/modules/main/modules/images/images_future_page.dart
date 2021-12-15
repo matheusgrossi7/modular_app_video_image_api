@@ -53,11 +53,6 @@ class _ImagesFuturePageState extends State<ImagesFuturePage>
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(
-      SystemUiOverlayStyle(
-        statusBarColor: Theme.of(context).primaryColorDark,
-      ),
-    );
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: SystemUiOverlayStyle.light
           .copyWith(statusBarColor: Theme.of(context).primaryColorDark),
