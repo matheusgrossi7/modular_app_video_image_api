@@ -1,4 +1,3 @@
-import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -12,42 +11,51 @@ class MainPage extends StatefulWidget {
   State<MainPage> createState() => _MainPageState();
 }
 
-class _MainPageState extends ModularState<MainPage, MainController> {
+class _MainPageState extends ModularState<MainPage, MainController>
+    with SingleTickerProviderStateMixin {
+  AnimationController? _fadeOutAnimationController;
+  Tween<double>? _tweenFadeOut;
+  Animation<double>? _fadeOutAnimation;
+  Duration? _fadeOutAnimationDuration;
+
   @override
   void initState() {
     super.initState();
-    controller.init();
+    _fadeOutAnimationDuration = controller.animationsParameters.fadeOutDuration;
+    _fadeOutAnimationController = AnimationController(
+      vsync: this,
+      duration: _fadeOutAnimationDuration,
+    );
+    _tweenFadeOut = controller.animationsParameters.tweenFadeOut;
+    _fadeOutAnimation = _tweenFadeOut!.animate(_fadeOutAnimationController!);
+  }
+
+  @override
+  void dispose() {
+    _fadeOutAnimationController!.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Observer(
-      builder: (BuildContext context) => Scaffold(
-        body: PageTransitionSwitcher(
-          duration: const Duration(milliseconds: 300),
-          reverse: controller.isPageTransitionAnimationReversed,
-          transitionBuilder: (
-            Widget child,
-            Animation<double> animation,
-            Animation<double> secondaryAnimation,
-          ) {
-            return SharedAxisTransition(
-              fillColor: Theme.of(context).scaffoldBackgroundColor,
-              child: child,
-              animation: animation,
-              secondaryAnimation: secondaryAnimation,
-              transitionType: SharedAxisTransitionType.horizontal,
-            );
-          },
+    return Scaffold(
+      body: Observer(
+        builder: (BuildContext context) => FadeTransition(
+          opacity: _fadeOutAnimation!,
           child: RouterOutlet(
-            key: UniqueKey(),
+            key: Key(
+              UniqueKey().toString() + controller.currentPageIndex.toString(),
+            ),
           ),
         ),
-        bottomNavigationBar: BottomNavigationBar(
-          currentIndex: controller.currentPageIndex,
-          onTap: (int index) {
-            controller.changeCurrentPageIndex(index);
-          },
+      ),
+      bottomNavigationBar: Observer(
+        builder: (BuildContext context) => BottomNavigationBar(
+          currentIndex: controller.currentBottomNavIndex,
+          onTap: (int index) => controller.changeCurrentPageIndex(
+            newIndex: index,
+            fadeOutAnimationController: _fadeOutAnimationController!,
+          ),
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(
               icon: Icon(Icons.home_outlined),

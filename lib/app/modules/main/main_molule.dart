@@ -1,15 +1,23 @@
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:test_modular_app_video_image_api/app/shared/exports.dart';
 
-import 'home/home_module.dart';
-import 'favorites/favorites_module.dart';
 import 'main_controller.dart';
 import 'main_page.dart';
+import 'modules/favorites/favorites_module.dart';
+import 'modules/home/home_module.dart';
+import 'repository/exports.dart';
 
 class MainModule extends Module {
+  static const String homeModuleRouteName = '/home/';
+  static const String favoritesModuleRouteName = '/favorites/';
+
   @override
   List<Bind> get binds => [
-        Bind(
-          (i) => MainController(),
+        Bind.singleton(
+          (i) => PexelsRepository(),
+        ),
+        Bind.singleton(
+          (i) => MainController(i.get<AnimationsParametersI>()),
         ),
       ];
 
@@ -18,16 +26,15 @@ class MainModule extends Module {
         ChildRoute(
           '/',
           child: (context, args) => const MainPage(),
+          transition: TransitionType.noTransition,
           children: [
             ModuleRoute(
-              '/home',
+              homeModuleRouteName,
               module: HomeModule(),
-              transition: TransitionType.noTransition,
             ),
             ModuleRoute(
-              '/favorites',
+              favoritesModuleRouteName,
               module: FavoritesModule(),
-              transition: TransitionType.noTransition,
             ),
           ],
         ),

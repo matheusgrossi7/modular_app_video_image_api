@@ -24,53 +24,41 @@ mixin _$MainController on _MainController, Store {
     });
   }
 
-  final _$isPageTransitionAnimationReversedAtom =
-      Atom(name: '_MainController.isPageTransitionAnimationReversed');
+  final _$currentBottomNavIndexAtom =
+      Atom(name: '_MainController.currentBottomNavIndex');
 
   @override
-  bool get isPageTransitionAnimationReversed {
-    _$isPageTransitionAnimationReversedAtom.reportRead();
-    return super.isPageTransitionAnimationReversed;
+  int get currentBottomNavIndex {
+    _$currentBottomNavIndexAtom.reportRead();
+    return super.currentBottomNavIndex;
   }
 
   @override
-  set isPageTransitionAnimationReversed(bool value) {
-    _$isPageTransitionAnimationReversedAtom
-        .reportWrite(value, super.isPageTransitionAnimationReversed, () {
-      super.isPageTransitionAnimationReversed = value;
+  set currentBottomNavIndex(int value) {
+    _$currentBottomNavIndexAtom.reportWrite(value, super.currentBottomNavIndex,
+        () {
+      super.currentBottomNavIndex = value;
     });
   }
 
-  final _$_MainControllerActionController =
-      ActionController(name: '_MainController');
+  final _$changeCurrentPageIndexAsyncAction =
+      AsyncAction('_MainController.changeCurrentPageIndex');
 
   @override
-  void init() {
-    final _$actionInfo = _$_MainControllerActionController.startAction(
-        name: '_MainController.init');
-    try {
-      return super.init();
-    } finally {
-      _$_MainControllerActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  void changeCurrentPageIndex(int newIndex) {
-    final _$actionInfo = _$_MainControllerActionController.startAction(
-        name: '_MainController.changeCurrentPageIndex');
-    try {
-      return super.changeCurrentPageIndex(newIndex);
-    } finally {
-      _$_MainControllerActionController.endAction(_$actionInfo);
-    }
+  Future<void> changeCurrentPageIndex(
+      {required int newIndex,
+      required AnimationController fadeOutAnimationController}) {
+    return _$changeCurrentPageIndexAsyncAction.run(() => super
+        .changeCurrentPageIndex(
+            newIndex: newIndex,
+            fadeOutAnimationController: fadeOutAnimationController));
   }
 
   @override
   String toString() {
     return '''
 currentPageIndex: ${currentPageIndex},
-isPageTransitionAnimationReversed: ${isPageTransitionAnimationReversed}
+currentBottomNavIndex: ${currentBottomNavIndex}
     ''';
   }
 }
