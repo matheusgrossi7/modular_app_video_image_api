@@ -52,7 +52,7 @@ class _MainPageState extends ModularState<MainPage, MainController>
       bottomNavigationBar: Observer(
         builder: (BuildContext context) => BottomNavigationBar(
           currentIndex: controller.currentBottomNavIndex,
-          onTap: (int index) async => controller.changeCurrentPageIndex(
+          onTap: (int index) => controller.changeCurrentPageIndex(
             newIndex: index,
             fadeOutAnimationController: _fadeOutAnimationController!,
           ),
