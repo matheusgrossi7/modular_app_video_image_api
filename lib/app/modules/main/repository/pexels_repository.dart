@@ -54,7 +54,7 @@ class PexelsRepository extends MediaRepositoryI {
             _responseImageAvgHexColor = map["avg_color"]!;
             _photos.add(
               PhotoModel(
-                avgHexColor: int.parse(
+                avgColor: int.parse(
                   "0xFF" + _responseImageAvgHexColor!.substring(1),
                 ),
                 height: _responseImageHeight!.toDouble(),

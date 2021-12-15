@@ -21,7 +21,6 @@ abstract class _HomeController with Store {
         .fetchImages(
       perPage: perPage,
       page: page,
-      search: "kiwi", // this is empty by default, to get the "curated photos"
     )
         .then(
       (response) {
@@ -71,13 +70,13 @@ abstract class _HomeController with Store {
 
   @action
   Future<void> search(String newSearchLabel) async {
-    String _newSearchLabelT = newSearchLabel.trim();
-    if (_newSearchLabelT.isNotEmpty) {
+    String _newSearchLabelTrimmed = newSearchLabel.trim();
+    if (_newSearchLabelTrimmed.isNotEmpty) {
       setHomeStatus(HomeStatus.loading);
-      setSearchFieldInitialValue(_newSearchLabelT);
+      setSearchFieldInitialValue(_newSearchLabelTrimmed);
       mediaRepositoryI
           .fetchImages(
-        search: _newSearchLabelT,
+        search: _newSearchLabelTrimmed,
         perPage: perPage,
         page: page,
       )

@@ -54,14 +54,6 @@ class SliverHeaderDelegate extends SliverPersistentHeaderDelegate {
                 scrollAnimateToTop: _scrollAnimateToTop,
               ),
               const SizedBox(width: 16),
-              InkWell(
-                onTap: () {},
-                child: Icon(
-                  Icons.filter_list,
-                  color: Theme.of(context).unselectedWidgetColor,
-                ),
-              ),
-              const SizedBox(width: 16),
             ],
           ),
         ),

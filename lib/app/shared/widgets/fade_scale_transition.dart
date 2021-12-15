@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class FadeScaleTransition extends StatefulWidget {
+class FadeScaleTransition extends StatelessWidget {
   const FadeScaleTransition({
     Key? key,
     required this.fadeInAnimation,
@@ -14,25 +14,19 @@ class FadeScaleTransition extends StatefulWidget {
   final Widget child;
 
   @override
-  State<FadeScaleTransition> createState() => _FadeScaleTransitionState();
-}
-
-class _FadeScaleTransitionState extends State<FadeScaleTransition>
-    with SingleTickerProviderStateMixin {
-  @override
   Widget build(BuildContext context) {
     return FadeTransition(
-      opacity: widget.fadeInAnimation,
+      opacity: fadeInAnimation,
       child: TweenAnimationBuilder(
-        tween: widget.tweenScaleUp,
-        duration: widget.fadeInAnimationDuration,
+        tween: tweenScaleUp,
+        duration: fadeInAnimationDuration,
         builder: (BuildContext context, double scale, Widget? child) {
           return Transform.scale(
             scale: scale,
             child: child,
           );
         },
-        child: widget.child,
+        child: child,
       ),
     );
   }

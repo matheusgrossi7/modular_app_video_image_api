@@ -14,8 +14,7 @@ class ImageGridItem extends StatelessWidget {
   final double itemsSpacing;
   final double itemWidth;
 
-  Size getItemSize(
-      BuildContext context, double mediaWidth, double mediaHeight) {
+  Size getItemSize(double mediaWidth, double mediaHeight) {
     Size size = Size(itemWidth, itemWidth * mediaHeight / mediaWidth);
     return size;
   }
@@ -25,7 +24,6 @@ class ImageGridItem extends StatelessWidget {
     return ConstrainedBox(
       constraints: BoxConstraints.tight(
         getItemSize(
-          context,
           photo.width,
           photo.height,
         ),
@@ -35,13 +33,12 @@ class ImageGridItem extends StatelessWidget {
         child: Stack(
           children: [
             Container(
-              color: Color(photo.avgHexColor),
+              color: Color(photo.avgColor),
             ),
             FadeInImage.assetNetwork(
               image: photo.urlMediumSize,
               width: double.maxFinite,
               height: double.maxFinite,
-              key: UniqueKey(),
               fit: BoxFit.cover,
               fadeInDuration: animationDuration,
               fadeOutDuration: animationDuration,

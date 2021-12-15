@@ -1,8 +1,9 @@
 import 'package:flutter/animation.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
-import 'package:test_modular_app_video_image_api/app/modules/main/main_molule.dart';
 import 'package:test_modular_app_video_image_api/app/shared/exports.dart';
+
+import 'main_molule.dart';
 
 part 'main_controller.g.dart';
 

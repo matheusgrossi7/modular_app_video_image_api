@@ -77,7 +77,6 @@ class _SearchBarTextFieldState extends State<SearchBarTextField> {
                 onTap: clearTextFormField,
                 child: Icon(
                   Icons.cancel,
-                  size: 24,
                   color: Theme.of(context).unselectedWidgetColor,
                 ),
               ),
