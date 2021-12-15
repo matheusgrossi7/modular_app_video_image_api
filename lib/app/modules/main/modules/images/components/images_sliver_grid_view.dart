@@ -14,22 +14,23 @@ class ImagesSliverGridView extends StatelessWidget {
   final Duration animationDuration;
   final double _itemsSpacing = 8.0;
   final int _crossAxisCount = 2;
-  final double _padding = 16.0;
+  final double _gridPadding = 16.0;
 
   double _getChildrenWidth(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
-    double tileWidth = (screenWidth -
-            (_padding * 2) -
+    double childrenWidth = (screenWidth -
+            (_gridPadding * 2) -
             (_itemsSpacing * (_crossAxisCount - 1))) /
         _crossAxisCount;
-    return tileWidth;
+    return childrenWidth;
   }
 
   @override
   Widget build(BuildContext context) {
     if (photos.isNotEmpty) {
+      double _childrenWidth = _getChildrenWidth(context);
       return SliverPadding(
-        padding: EdgeInsets.all(_padding),
+        padding: EdgeInsets.all(_gridPadding),
         sliver: SliverStaggeredGrid.count(
           crossAxisCount: _crossAxisCount,
           mainAxisSpacing: _itemsSpacing,
@@ -40,7 +41,7 @@ class ImagesSliverGridView extends StatelessWidget {
                   photo: photo,
                   animationDuration: animationDuration,
                   itemsSpacing: _itemsSpacing,
-                  itemWidth: _getChildrenWidth(context),
+                  itemWidth: _childrenWidth,
                 ),
               )
               .toList(),
