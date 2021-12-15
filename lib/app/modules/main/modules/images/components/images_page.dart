@@ -3,8 +3,8 @@ import 'package:test_modular_app_video_image_api/app/shared/exports.dart';
 
 import 'exports.dart';
 
-class HomePage extends StatelessWidget {
-  const HomePage({
+class ImagesPage extends StatelessWidget {
+  const ImagesPage({
     Key? key,
     required this.photos,
     required this.fadeInAnimationDuration,

@@ -43,7 +43,7 @@ class PexelsRepository extends MediaRepositoryI {
           Uri.parse(_url),
           headers: {
             HttpHeaders.authorizationHeader:
-                HomeRepositoryCredentials.pixelsApiKey,
+                ImagesRepositoryCredentials.pixelsApiKey,
           },
         );
         if (_httpResponse.statusCode == 200) {

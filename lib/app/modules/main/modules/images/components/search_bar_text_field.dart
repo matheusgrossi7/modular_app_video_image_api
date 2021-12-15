@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
-import '../home_controller.dart';
-import '../home_module.dart';
+import '../images_controller.dart';
+import '../images_module.dart';
 
 class SearchBarTextField extends StatefulWidget {
   const SearchBarTextField({
@@ -18,8 +18,8 @@ class SearchBarTextField extends StatefulWidget {
 class _SearchBarTextFieldState extends State<SearchBarTextField> {
   TextEditingController? _textController;
   FocusNode? _focusNode;
-  // Temporary workaround, more info in home_module.dart
-  HomeController controller = homeController;
+  // Temporary workaround, more info in images_module.dart
+  ImagesController controller = imagesController;
 
   void _onTap() {
     widget.scrollAnimateToTop();

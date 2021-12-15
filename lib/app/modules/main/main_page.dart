@@ -58,9 +58,9 @@ class _MainPageState extends ModularState<MainPage, MainController>
           ),
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(
-              icon: Icon(Icons.home_outlined),
-              activeIcon: Icon(Icons.home),
-              label: "Home",
+              icon: Icon(Icons.image_outlined),
+              activeIcon: Icon(Icons.image),
+              label: "Images",
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.favorite_border),

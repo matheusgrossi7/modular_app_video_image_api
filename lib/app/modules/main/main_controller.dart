@@ -11,7 +11,7 @@ class MainController = _MainController with _$MainController;
 
 abstract class _MainController with Store {
   _MainController(this.animationsParameters) {
-    Modular.to.navigate(MainModule.homeModuleRouteName);
+    Modular.to.navigate(MainModule.imagesModuleRouteName);
   }
   AnimationsParametersI animationsParameters;
 
@@ -39,13 +39,13 @@ abstract class _MainController with Store {
       currentPageIndex = newIndex;
       switch (currentPageIndex) {
         case 0:
-          Modular.to.navigate(MainModule.homeModuleRouteName);
+          Modular.to.navigate(MainModule.imagesModuleRouteName);
           break;
         case 1:
           Modular.to.navigate(MainModule.favoritesModuleRouteName);
           break;
         default:
-          Modular.to.navigate(MainModule.homeModuleRouteName);
+          Modular.to.navigate(MainModule.imagesModuleRouteName);
           break;
       }
       fadeOutAnimationController.duration = const Duration(milliseconds: 0);

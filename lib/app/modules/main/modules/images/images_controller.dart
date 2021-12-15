@@ -3,20 +3,20 @@ import 'package:mobx/mobx.dart';
 import 'package:test_modular_app_video_image_api/app/modules/main/repository/exports.dart';
 import 'package:test_modular_app_video_image_api/app/shared/exports.dart';
 
-import 'utils/enums/home_status.dart';
+import 'utils/enums/enum_images_status.dart';
 
-part 'home_controller.g.dart';
+part 'images_controller.g.dart';
 
-class HomeController = _HomeController with _$HomeController;
+class ImagesController = _ImagesController with _$ImagesController;
 
-abstract class _HomeController with Store {
+abstract class _ImagesController with Store {
   final AnimationsParametersI animationsParameters;
   final MediaRepositoryI mediaRepositoryI;
 
   final FocusNode focusNode = FocusNode();
 
   void initialSearch() {
-    homeStatus = HomeStatus.loading;
+    imagesStatus = ImagesStatus.loading;
     mediaRepositoryI
         .fetchImages(
       perPage: perPage,
@@ -25,10 +25,10 @@ abstract class _HomeController with Store {
         .then(
       (response) {
         if (response.responseStatusCode == 200) {
-          homeStatus = HomeStatus.success;
+          imagesStatus = ImagesStatus.success;
           photos = response.photos;
         } else {
-          homeStatus = HomeStatus.error;
+          imagesStatus = ImagesStatus.error;
         }
       },
     );
@@ -44,14 +44,14 @@ abstract class _HomeController with Store {
   int perPage = 80;
 
   @observable
-  int homeStatus = HomeStatus.loading;
+  int imagesStatus = ImagesStatus.loading;
 
   @observable
   List<PhotoModel>? photos;
 
   @action
-  void setHomeStatus(int newStatus) {
-    homeStatus = newStatus;
+  void setImagesStatus(int newStatus) {
+    imagesStatus = newStatus;
   }
 
   @action
@@ -72,7 +72,7 @@ abstract class _HomeController with Store {
   Future<void> search(String newSearchLabel) async {
     String _newSearchLabelTrimmed = newSearchLabel.trim();
     if (_newSearchLabelTrimmed.isNotEmpty) {
-      setHomeStatus(HomeStatus.loading);
+      setImagesStatus(ImagesStatus.loading);
       setSearchFieldInitialValue(_newSearchLabelTrimmed);
       mediaRepositoryI
           .fetchImages(
@@ -84,16 +84,16 @@ abstract class _HomeController with Store {
         (response) {
           if (response.responseStatusCode == 200) {
             photos = response.photos;
-            setHomeStatus(HomeStatus.success);
+            setImagesStatus(ImagesStatus.success);
           } else {
-            setHomeStatus(HomeStatus.error);
+            setImagesStatus(ImagesStatus.error);
           }
         },
       );
     }
   }
 
-  _HomeController(
+  _ImagesController(
     this.animationsParameters,
     this.mediaRepositoryI,
   ) {

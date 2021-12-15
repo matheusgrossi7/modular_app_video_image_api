@@ -1,23 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:test_modular_app_video_image_api/app/modules/main/modules/home/home_controller.dart';
 import 'package:test_modular_app_video_image_api/app/shared/exports.dart';
 
-import 'home_module.dart';
+import 'images_controller.dart';
+import 'images_module.dart';
 import 'utils/enums/exports.dart';
 import 'components/exports.dart';
 
-class HomeFuturePage extends StatefulWidget {
-  const HomeFuturePage({
+class ImagesFuturePage extends StatefulWidget {
+  const ImagesFuturePage({
     Key? key,
   }) : super(key: key);
 
   @override
-  State<HomeFuturePage> createState() => _HomeFuturePageState();
+  State<ImagesFuturePage> createState() => _ImagesFuturePageState();
 }
 
-class _HomeFuturePageState extends State<HomeFuturePage>
+class _ImagesFuturePageState extends State<ImagesFuturePage>
     with SingleTickerProviderStateMixin {
   AnimationController? _fadeInAnimationController;
   Animation<double>? _fadeInAnimation;
@@ -26,8 +26,8 @@ class _HomeFuturePageState extends State<HomeFuturePage>
   ScrollController? _scrollController;
   Duration? _fadeInAnimationDuration;
   Curve? _curve;
-  // Temporary workaround, more info in home_module.dart
-  HomeController controller = homeController;
+  // Temporary workaround, more info in images_module.dart
+  ImagesController controller = imagesController;
 
   @override
   void initState() {
@@ -66,14 +66,14 @@ class _HomeFuturePageState extends State<HomeFuturePage>
           child: Observer(
             builder: (BuildContext context) {
               Widget? _widget;
-              if (controller.homeStatus == HomeStatus.loading) {
+              if (controller.imagesStatus == ImagesStatus.loading) {
                 _widget = LoadingIndicator(
                   fadeInAnimation: _fadeInAnimation!,
                   fadeInAnimationDuration: _fadeInAnimationDuration!,
                   tweenScaleUp: _tweenScaleUp!,
                 );
-              } else if (controller.homeStatus == HomeStatus.success) {
-                _widget = HomePage(
+              } else if (controller.imagesStatus == ImagesStatus.success) {
+                _widget = ImagesPage(
                   scrollController: _scrollController!,
                   fadeInAnimation: _fadeInAnimation!,
                   curve: _curve!,
@@ -81,7 +81,7 @@ class _HomeFuturePageState extends State<HomeFuturePage>
                   tweenScaleUp: _tweenScaleUp!,
                   photos: controller.photos!,
                 );
-              } else if (controller.homeStatus == HomeStatus.error) {
+              } else if (controller.imagesStatus == ImagesStatus.error) {
                 _widget = ConnectionErrorPlaceholder(
                   refresh: controller.refresh,
                 );

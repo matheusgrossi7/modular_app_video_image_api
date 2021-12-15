@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'home_controller.dart';
+part of 'images_controller.dart';
 
 // **************************************************************************
 // StoreGenerator
@@ -8,9 +8,9 @@ part of 'home_controller.dart';
 
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
-mixin _$HomeController on _HomeController, Store {
+mixin _$ImagesController on _ImagesController, Store {
   final _$searchFieldInitialValueAtom =
-      Atom(name: '_HomeController.searchFieldInitialValue');
+      Atom(name: '_ImagesController.searchFieldInitialValue');
 
   @override
   String get searchFieldInitialValue {
@@ -26,7 +26,7 @@ mixin _$HomeController on _HomeController, Store {
     });
   }
 
-  final _$pageAtom = Atom(name: '_HomeController.page');
+  final _$pageAtom = Atom(name: '_ImagesController.page');
 
   @override
   int get page {
@@ -41,7 +41,7 @@ mixin _$HomeController on _HomeController, Store {
     });
   }
 
-  final _$perPageAtom = Atom(name: '_HomeController.perPage');
+  final _$perPageAtom = Atom(name: '_ImagesController.perPage');
 
   @override
   int get perPage {
@@ -56,22 +56,22 @@ mixin _$HomeController on _HomeController, Store {
     });
   }
 
-  final _$homeStatusAtom = Atom(name: '_HomeController.homeStatus');
+  final _$imagesStatusAtom = Atom(name: '_ImagesController.imagesStatus');
 
   @override
-  int get homeStatus {
-    _$homeStatusAtom.reportRead();
-    return super.homeStatus;
+  int get imagesStatus {
+    _$imagesStatusAtom.reportRead();
+    return super.imagesStatus;
   }
 
   @override
-  set homeStatus(int value) {
-    _$homeStatusAtom.reportWrite(value, super.homeStatus, () {
-      super.homeStatus = value;
+  set imagesStatus(int value) {
+    _$imagesStatusAtom.reportWrite(value, super.imagesStatus, () {
+      super.imagesStatus = value;
     });
   }
 
-  final _$photosAtom = Atom(name: '_HomeController.photos');
+  final _$photosAtom = Atom(name: '_ImagesController.photos');
 
   @override
   List<PhotoModel>? get photos {
@@ -86,46 +86,46 @@ mixin _$HomeController on _HomeController, Store {
     });
   }
 
-  final _$searchAsyncAction = AsyncAction('_HomeController.search');
+  final _$searchAsyncAction = AsyncAction('_ImagesController.search');
 
   @override
   Future<void> search(String newSearchLabel) {
     return _$searchAsyncAction.run(() => super.search(newSearchLabel));
   }
 
-  final _$_HomeControllerActionController =
-      ActionController(name: '_HomeController');
+  final _$_ImagesControllerActionController =
+      ActionController(name: '_ImagesController');
 
   @override
-  void setHomeStatus(int newStatus) {
-    final _$actionInfo = _$_HomeControllerActionController.startAction(
-        name: '_HomeController.setHomeStatus');
+  void setImagesStatus(int newStatus) {
+    final _$actionInfo = _$_ImagesControllerActionController.startAction(
+        name: '_ImagesController.setImagesStatus');
     try {
-      return super.setHomeStatus(newStatus);
+      return super.setImagesStatus(newStatus);
     } finally {
-      _$_HomeControllerActionController.endAction(_$actionInfo);
+      _$_ImagesControllerActionController.endAction(_$actionInfo);
     }
   }
 
   @override
   void setSearchFieldInitialValue(String newValue) {
-    final _$actionInfo = _$_HomeControllerActionController.startAction(
-        name: '_HomeController.setSearchFieldInitialValue');
+    final _$actionInfo = _$_ImagesControllerActionController.startAction(
+        name: '_ImagesController.setSearchFieldInitialValue');
     try {
       return super.setSearchFieldInitialValue(newValue);
     } finally {
-      _$_HomeControllerActionController.endAction(_$actionInfo);
+      _$_ImagesControllerActionController.endAction(_$actionInfo);
     }
   }
 
   @override
   void refresh() {
-    final _$actionInfo = _$_HomeControllerActionController.startAction(
-        name: '_HomeController.refresh');
+    final _$actionInfo = _$_ImagesControllerActionController.startAction(
+        name: '_ImagesController.refresh');
     try {
       return super.refresh();
     } finally {
-      _$_HomeControllerActionController.endAction(_$actionInfo);
+      _$_ImagesControllerActionController.endAction(_$actionInfo);
     }
   }
 
@@ -135,7 +135,7 @@ mixin _$HomeController on _HomeController, Store {
 searchFieldInitialValue: ${searchFieldInitialValue},
 page: ${page},
 perPage: ${perPage},
-homeStatus: ${homeStatus},
+imagesStatus: ${imagesStatus},
 photos: ${photos}
     ''';
   }
