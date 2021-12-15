@@ -4,7 +4,7 @@ import 'animations_parameters_interface.dart';
 
 // https://material.io/design/motion/the-motion-system.html#fade-through
 
-class MainFadeThroughAnimationParameters extends AnimationsParametersI {
+class FadeThroughAnimationParameters extends AnimationsParametersI {
   @override
   Duration get duration => const Duration(milliseconds: 300);
 
