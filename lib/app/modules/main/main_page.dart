@@ -42,10 +42,11 @@ class _MainPageState extends ModularState<MainPage, MainController>
       body: Observer(
         builder: (BuildContext context) => FadeTransition(
           opacity: _fadeOutAnimation!,
-          child: RouterOutlet(
+          child: Container(
             key: Key(
               UniqueKey().toString() + controller.currentPageIndex.toString(),
             ),
+            child: RouterOutlet(),
           ),
         ),
       ),
