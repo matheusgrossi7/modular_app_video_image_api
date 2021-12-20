@@ -1,4 +1,4 @@
-# test_modular_app_video_image_api
+# modular_app_video_image_api
 A Flutter project created with the goal of put some concepts learned into practice. The app will display videos and image from Pexels (https://www.pexels.com/), using [their API](https://www.pexels.com/api/).
 
 Main concepts and things that I intend to put into practice:
