@@ -5,3 +5,4 @@ export 'models/photo_model.dart';
 export 'widgets/loading_indicator.dart';
 export 'widgets/connection_error_placeholder.dart';
 export 'widgets/nothing_found_sliver_placeholder.dart';
+export 'themes/app_themes.dart';
