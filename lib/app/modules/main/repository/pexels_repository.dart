@@ -73,7 +73,7 @@ class PexelsRepository extends MediaRepositoryI {
       }
       _photosResponse = PhotosResponse(
         photos: _photos,
-        responseStatusCode: _httpResponse.statusCode,
+        statusCode: _httpResponse.statusCode,
       );
       _loadedPhotosResponse = _photosResponse;
     } else {

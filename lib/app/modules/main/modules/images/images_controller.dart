@@ -16,7 +16,7 @@ abstract class _ImagesController with Store {
   final FocusNode focusNode = FocusNode();
 
   void initialSearch() {
-    imagesStatus = ImagesStatus.loading;
+    setImagesStatus(ImagesStatus.loading);
     mediaRepositoryI
         .fetchImages(
       perPage: perPage,
@@ -24,11 +24,11 @@ abstract class _ImagesController with Store {
     )
         .then(
       (response) {
-        if (response.responseStatusCode == 200) {
-          imagesStatus = ImagesStatus.success;
+        if (response.statusCode == 200) {
+          setImagesStatus(ImagesStatus.success);
           photos = response.photos;
         } else {
-          imagesStatus = ImagesStatus.error;
+          setImagesStatus(ImagesStatus.error);
         }
       },
     );
@@ -82,7 +82,7 @@ abstract class _ImagesController with Store {
       )
           .then(
         (response) {
-          if (response.responseStatusCode == 200) {
+          if (response.statusCode == 200) {
             photos = response.photos;
             setImagesStatus(ImagesStatus.success);
           } else {

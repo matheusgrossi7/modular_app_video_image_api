@@ -3,8 +3,8 @@ import 'package:test_modular_app_video_image_api/app/shared/exports.dart';
 class PhotosResponse {
   const PhotosResponse({
     required this.photos,
-    required this.responseStatusCode,
+    required this.statusCode,
   });
   final List<PhotoModel> photos;
-  final int responseStatusCode;
+  final int statusCode;
 }
